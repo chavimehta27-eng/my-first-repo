@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chavi Mehta | Portfolio</title>
+    <style>
+        /* --- GLOBAL RESETS & THEME CONFIGURATION --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            /* Latest Deep Cyber-Blue Palette */
+            --bg-deep-space: #030712;
+            --bg-card-blue: #0b1528;
+            --bg-card-hover: #112240;
+            --text-primary: #f3f4f6;
+            --text-secondary: #94a3b8;
+            
+            /* High Contrast Accent Gradients */
+            --electric-cyan: #06b6d4;
+            --neon-indigo: #6366f1;
+            --laser-pink: #f43f5e;
+            --cyber-gradient: linear-gradient(135deg, var(--electric-cyan), var(--neon-indigo));
+            
+            --border-glow: rgba(6, 182, 212, 0.15);
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body {
+            background-color: var(--bg-deep-space);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- STICKY GLOWING NAVBAR --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(3, 7, 18, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: var(--cyber-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--electric-cyan);
+        }
+
+        /* Nav item underline animation */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: var(--cyber-gradient);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* --- HERO SECTION WITH BACKGROUND ANIMATION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 2rem;
+            position: relative;
+            /* Glowing background orbs simulation using pure CSS radial gradients */
+            background: 
+                radial-gradient(circle at 15% 25%, rgba(6, 182, 212, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 85% 75%, rgba(99, 102, 241, 0.15) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 850px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: heroReveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .hero-badge {
+            background: rgba(6, 182, 212, 0.06);
+            color: var(--electric-cyan);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            display: inline-block;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(120deg, var(--electric-cyan), var(--neon-indigo), var(--laser-pink));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGradientShift 5s ease infinite;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- COMPONENT BUTTONS --- */
+        .btn-wrapper {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 0.9rem 2.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: var(--cyber-gradient);
+            color: #ffffff;
+            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.45);
+        }
+
+        .btn-secondary {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--electric-cyan);
+            background: rgba(6, 182, 212, 0.03);
+            transform: translateY(-3px);
+            color: #fff;
+        }
+
+        /* --- SECTIONS INTERIOR --- */
+        section {
+            padding: 8rem 2rem 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            position: relative;
+            display: inline-block;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 40px;
+            height: 4px;
+            background: var(--cyber-gradient);
+            border-radius: 2px;
+            transition: var(--transition-smooth);
+        }
+
+        section:hover .section-title::after {
+            width: 100%;
+        }
+
+        /* --- ABOUT & SKILLS MATRIX --- */
+        .about-layout {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .about-bio p {
+            color: var(--text-secondary);
+            margin-bottom: 1.8rem;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .about-bio strong {
+            color: var(--text-primary);
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .skill-node {
+            background: var(--bg-card-blue);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .skill-node:hover {
+            transform: translateY(-5px);
+            background: var(--bg-card-hover);
+            border-color: rgba(6, 182, 212, 0.3);
+            box-shadow: 0 10px 25px rgba(3, 7, 18, 0.5), inset 0 0 12px rgba(6, 182, 212, 0.05);
+        }
+
+        .skill-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .skill-node span {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: block;
+        }
+
+        /* --- SHOWCASE PROJECTS CARDS --- */
+        .projects-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background: var(--bg-card-blue);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 20px 40px rgba(3, 7, 18, 0.7);
+        }
+
+        .project-visual {
+            height: 160px;
+            background: linear-gradient(135deg, #0f1c3f, #070d19);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        /* High contrast dynamic glow mask behind icons */
+        .project-visual::before {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            background: var(--cyber-gradient);
+            filter: blur(35px);
+            opacity: 0.2;
+            transition: var(--transition-smooth);
+        }
+
+        .project-card:hover .project-visual::before {
+            opacity: 0.4;
+            width: 100px;
+            height: 100px;
+        }
+
+        .project-info {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .project-info h3 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.3px;
+        }
+
+        .project-info p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.8rem;
+            flex-grow: 1;
+            line-height: 1.6;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .tech-pill {
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            color: var(--text-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .project-card:hover .tech-pill {
+            border-color: rgba(6, 182, 212, 0.15);
+            color: var(--text-primary);
+        }
+
+        .project-navigation {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            font-size: 0.9rem;
+            color: var(--electric-cyan);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link:hover {
+            color: var(--neon-indigo);
+            transform: translateX(3px);
+        }
+
+        /* --- RECRUITER CONTACT INTERFACE --- */
+        .contact-panel {
+            background: linear-gradient(135deg, #070f21 0%, #040914 100%);
+            border: 1px solid rgba(6, 182, 212, 0.08);
+            border-radius: 24px;
+            padding: 4.5rem 2rem;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 15px 35px rgba(3, 7, 18, 0.4);
+            position: relative;
+        }
+
+        .contact-panel h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .contact-panel p {
+            color: var(--text-secondary);
+            max-width: 550px;
+            margin: 0 auto 3rem auto;
+            font-size: 1.1rem;
+        }
+
+        .channels-layout {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .channel-card {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.8rem 1.8rem;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition-smooth);
+        }
+
+        .channel-card:hover {
+            background: rgba(6, 182, 212, 0.05);
+            border-color: var(--electric-cyan);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(3, 7, 18, 0.5);
+        }
+
+        /* --- FOOTER ELEMENTS --- */
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            margin-top: 8rem;
+        }
+
+        /* --- PURE CSS ANIMATION KEYFRAMES --- */
+        @keyframes heroReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes textGradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- HIGH PERFORMANCE RESPONSIVE ENGINE --- */
+        @media (max-width: 968px) {
+            .about-layout {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* Mobile optimization eliminates layout breakage */
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .btn-wrapper {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+            section {
+                padding: 6rem 1.5rem 3rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">CHAVI.DEV</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About & Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Engineering Next-Gen Digital Solutions</div>
+            <h1>Hi, I'm <span>Chavi Mehta</span></h1>
+            <p>A B.Tech Computer Science & Engineering student at Gits Udaipur. I build highly responsive web systems, handle raw data structures, and craft structured analytical interfaces.</p>
+            <div class="btn-wrapper">
+                <a href="#projects" class="btn btn-primary">Explore Projects</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="about-layout">
+            <div class="about-bio">
+                <div class="section-header">
+                    <h2 class="section-title">About Profile</h2>
+                </div>
+                <p>Currently deep into my engineering stack at <strong>Gits Udaipur</strong>, I approach computer science by striking a balance between logical system design and data-driven architectures.</p>
+                <p>Whether deploying modern, interactive full-stack modules using the <strong>MERN layer</strong> or designing custom performance architectures inside <strong>C/C++ pipelines</strong>, I optimize code infrastructure for scalability, clear presentation, and system speed.</p>
+            </div>
+            
+            <div>
+                <div class="section-header">
+                    <h2 class="section-title">Technical Matrix</h2>
+                </div>
+                <div class="skills-container">
+                    <div class="skill-node">
+                        <span class="skill-icon">🛠️</span>
+                        <span>C / C++</span>
+                    </div>
+                    <div class="skill-node">
+                        <span class="skill-icon">🐍</span>
+                        <span>Python</span>
+                    </div>
+                    <div class="skill-node">
+                        <span class="skill-icon">🟢</span>
+                        <span>MERN Dev</span>
+                    </div>
+                    <div class="skill-node">
+                        <span class="skill-icon">📊</span>
+                        <span>Data Viz</span>
+                    </div>
+                    <div class="skill-node">
+                        <span class="skill-icon">⚡</span>
+                        <span>Analysis</span>
+                    </div>
+                    <div class="skill-node">
+                        <span class="skill-icon">🐙</span>
+                        <span>Git & GitHub</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="section-header">
+            <h2 class="section-title">Engineered Deliverables</h2>
+        </div>
+        <div class="projects-layout">
+            
+            <div class="project-card">
+                <div class="project-visual">💻</div>
+                <div class="project-info">
+                    <h3>Full-Stack MERN Architecture</h3>
+                    <p>Designed a structured end-to-end cloud platform optimized for state management and high-volume asset transactions. Implemented responsive design modules coupled with secure API schemas.</p>
+                    <div class="project-tags">
+                        <span class="tech-pill">MongoDB</span>
+                        <span class="tech-pill">Express</span>
+                        <span class="tech-pill">React</span>
+                        <span class="tech-pill">Node.js</span>
+                    </div>
+                    <div class="project-navigation">
+                        <a href="#" class="nav-link">Code Asset ↗</a>
+                        <a href="#" class="nav-link">Live Host ↗</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-visual">📈</div>
+                <div class="project-info">
+                    <h3>Data Analytics Pipeline</h3>
+                    <p>Engineered a parsing pipeline using Python to handle large structural data arrays. Outputs optimized real-time visuals transforming multi-tiered raw inputs into visual analytical dashboards.</p>
+                    <div class="project-tags">
+                        <span class="tech-pill">Python</span>
+                        <span class="tech-pill">Data Visualisation</span>
+                        <span class="tech-pill">Analysis</span>
+                    </div>
+                    <div class="project-navigation">
+                        <a href="#" class="nav-link">Repository ↗</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-visual">⚙️</div>
+                <div class="project-info">
+                    <h3>Algorithm Optimization Lab</h3>
+                    <p>A native deployment of system-level logic patterns and memory allocation trees. Focused on optimizing computational performance metrics across runtime complex environments.</p>
+                    <div class="project-tags">
+                        <span class="tech-pill">C++</span>
+                        <span class="tech-pill">C Programming</span>
+                        <span class="tech-pill">Algorithms</span>
+                    </div>
+                    <div class="project-navigation">
+                        <a href="#" class="nav-link">Source Files ↗</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contact-panel">
+            <h2>Let's Start a Conversation</h2>
+            <p>I am looking for internship opportunities and collaborative development tasks. Open to technical interview evaluations and engineering reviews.</p>
+            <div class="channels-layout">
+                <a href="mailto:chavi.mehta@example.com" class="channel-card">
+                    ✉️ Secure Mail
+                </a>
+                <a href="https://github.com" target="_blank" class="channel-card">
+                    🐙 GitHub Asset Hub
+                </a>
+                <a href="https://linkedin.com" target="_blank" class="channel-card">
+                    💼 LinkedIn Verification
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Chavi Mehta. Built using native high-contrast HTML5 & CSS3 parameters. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
